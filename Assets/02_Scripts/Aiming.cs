@@ -39,7 +39,6 @@ public class Aiming : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             animator.SetTrigger("Shoot");
-            Debug.Log("트리거 발동");
         }
     }
 

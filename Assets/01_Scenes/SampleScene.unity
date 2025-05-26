@@ -274,7 +274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseTransform: {fileID: 117351259}
   mainCamera: {fileID: 519420031}
-  animator: {fileID: 117351260}
+  animator: {fileID: 0}
 --- !u!1 &117351258
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,27 +310,33 @@ Transform:
   - {fileID: 1386672394}
   m_Father: {fileID: 95652786}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &117351260
-Animator:
-  serializedVersion: 5
+--- !u!50 &117351260
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117351258}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3dc0c2d697875964199fbae398d0c0d0, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &150780903
 GameObject:
   m_ObjectHideFlags: 0
