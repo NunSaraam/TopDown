@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
 
     private float moveHorizontal, moveVertical;
     Vector2 movement;
-    private int facingDirection = 1;    //1 = ¿À¸¥ÂÊ, -1 = ¿ÞÂÊ
+    private int facingDirection = 1;
 
     private void Start()
     {
@@ -47,12 +47,7 @@ public class Player : MonoBehaviour
     {
         rb.velocity = movement * moveSpeed;
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
         
-    }
-
     void Hit(int damage)
     {
         animator.SetTrigger("Hit");
@@ -62,7 +57,12 @@ public class Player : MonoBehaviour
 
     void Dead()
     {
-        isDead = true;
-        //call GameOver
+        if (currentHealth <= 0)
+        {
+            isDead = true;
+
+            rb.velocity = Vector2.zero;
+            rb.isKinematic = true;
+        }
     }
 }
