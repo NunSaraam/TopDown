@@ -12,3 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 908788ab6286e034dbd1a9f63664b208, type: 3}
   m_Name: NewBossDrop
   m_EditorClassIdentifier: 
+  bossName: FinalBoss
+  dropSequence:
+  - {fileID: 11400000, guid: c4a92693e4d13264f82e80ac51e4d802, type: 2}
+  - {fileID: 11400000, guid: 80425667ae3cba945b57ddd2294f9204, type: 2}
+  - {fileID: 11400000, guid: 82731ca991fae314283d3dc829433c75, type: 2}
+  - {fileID: 11400000, guid: 42feaf9fe13afb14dbe6b83da23b5ebf, type: 2}
