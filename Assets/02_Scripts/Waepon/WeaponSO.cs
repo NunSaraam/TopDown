@@ -8,6 +8,7 @@ public class WeaponSO : ScriptableObject
     public string weaponName;
     public Sprite weaponIcon;
     public GameObject weaponPrefab;
+    public int maxAmmo;
     public int damage;
     public float shootRate;
 }
