@@ -15,6 +15,7 @@ MonoBehaviour:
   weaponName: Rifle
   weaponIcon: {fileID: 0}
   weaponPrefab: {fileID: 4155078696119691633, guid: 7e36fe9ab512e184cbe21f7a6c587b26, type: 3}
+  isAuto: 1
   maxAmmo: 30
   damage: 0
   shootRate: 0

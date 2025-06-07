@@ -12,7 +12,7 @@ public class WeaponData : MonoBehaviour
     private int currentAmmo;
     private bool isReloading = false;
     private float timer = 0f;
-    private float reloadTime = 2f;
+    private float reloadTime = 0.5f;
     
     public Image reloadingUI;
     public TextMeshProUGUI ammoUI;
@@ -83,9 +83,23 @@ public class WeaponData : MonoBehaviour
             reloadingUI.gameObject.SetActive(false);
         }
     }
+    public bool IsReloading()
+    {
+        return isReloading;
+    }
 
     public int GetMaxAmmo()
     {
         return data.maxAmmo;
+    }
+
+    public float GetShootRate()
+    {
+        return data.shootRate;
+    }
+
+    public bool IsAuto()
+    {
+        return data.isAuto;
     }
 }

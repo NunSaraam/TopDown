@@ -5,22 +5,29 @@ using System;
 
 public class Aiming : MonoBehaviour
 {
-    [SerializeField] WeaponData weaponData;
-
     //총알 발사
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private float bulletSpeed = 10.0f;
+
+    [SerializeField] private RectTransform crosshairUI;
+    [SerializeField] private RectTransform reloadUI;
+    [SerializeField] private Vector2 reloadUIOffset = new Vector2(50, 50);
+    [SerializeField] WeaponData weaponData;
+
 
     [SerializeField] private Transform mouseTransform;
 
     public Camera mainCamera;
     public Animator animator;
 
-
+    private float lastShotTime;
 
     private void Awake()
     {
+        Cursor.visible = false;     //커서 비활성화
+        Cursor.lockState = CursorLockMode.Confined;     //게임 화면 안에서만 움직임
+
         mainCamera = Camera.main;
         animator = GetComponent<Animator>();
         mouseTransform = transform.Find("Aim");
@@ -28,9 +35,10 @@ public class Aiming : MonoBehaviour
 
     private void Update()
     {
+        UpdataCrosshairPosition();
+        UpdateReloadUI();
         HandleAiming();
         Shooting();
-
     }
 
     private void HandleAiming()
@@ -44,35 +52,67 @@ public class Aiming : MonoBehaviour
 
     private void Shooting()
     {
+        if (Time.time < lastShotTime + weaponData.GetShootRate()) return;
 
-        if (Input.GetMouseButtonDown(0))
+        if (!weaponData.IsAuto() && Input.GetMouseButtonDown(0))
         {
-            if (weaponData.GetCurrentAmmo() <= 0)
-            {
-                Debug.Log("탄약이 없습니다. 재장전");
-                weaponData.TryReload();
-                return;
-            }
+            lastShotTime = Time.time;
+            Fire();
+        }
 
-            animator.SetTrigger("Shoot");
-        
-            Vector3 mousePos = GetMouseWorldPosition();
-            Vector3 direction = (mousePos - firePoint.position).normalized;
-
-            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
-            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-
-            if (rb != null)
-            {
-            rb.velocity = direction * bulletSpeed;
-            }
-
-            weaponData.ConsumeAmmo();
-
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            bullet.transform.rotation = Quaternion.Euler(0, 0, angle);
+        else if (weaponData.IsAuto() && Input.GetMouseButton(0))
+        {
+            lastShotTime = Time.time;
+            Fire();
         }
     }
+
+    private void Fire()
+    {
+        if (weaponData.GetCurrentAmmo() <= 0)
+        {
+            Debug.Log("탄약이 없습니다. 재장전");
+            weaponData.TryReload();
+            return;
+        }
+
+        animator.SetTrigger("Shoot");
+
+        Vector3 mousePos = GetMouseWorldPosition();
+        Vector3 direction = (mousePos - firePoint.position).normalized;
+
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+
+        if (rb != null)
+        {
+            rb.velocity = direction * bulletSpeed;
+        }
+
+        weaponData.ConsumeAmmo();
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        bullet.transform.rotation = Quaternion.Euler(0, 0, angle);
+    }
+
+    private void UpdateReloadUI()
+    {
+        if (reloadUI == null || weaponData == null) return;
+
+        Vector2 mousePos = Input.mousePosition;
+        reloadUI.position = mousePos + reloadUIOffset;
+
+        reloadUI.gameObject.SetActive(weaponData.IsReloading());
+    }
+
+    private void UpdataCrosshairPosition()
+    {
+        if (crosshairUI == null) return;
+
+        Vector2 mousePos = Input.mousePosition;
+        crosshairUI.position = mousePos;
+    }
+
 
     public Vector3 GetMouseWorldPosition()
     {
