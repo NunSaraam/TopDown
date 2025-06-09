@@ -18,4 +18,4 @@ MonoBehaviour:
   isAuto: 0
   maxAmmo: 6
   damage: 0
-  shootRate: 1
+  shootRate: 0.5

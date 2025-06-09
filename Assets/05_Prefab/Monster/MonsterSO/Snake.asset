@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a171a2c6ae9b0c84daff09115386595c, type: 3}
+  m_Name: Snake
+  m_EditorClassIdentifier: 
+  monsterName: Snake
+  monsterIcon: {fileID: 353055004, guid: f382f72cde4ba474f965b2dc632e0807, type: 3}
+  monsterPrefab: {fileID: 4629338510363516256, guid: d2789f729bfd1554aa84a431202e0763, type: 3}
+  monsterHealth: 10
+  moveSpeed: 5
+  damage: 2
+  attackRange: 1
+  attackCooldown: 1
+  animatorController: {fileID: 0}
+  HealthItemPrefab: {fileID: 687332556207951967, guid: f6ca77af6294e7a479bf9d26dc2d7b44, type: 3}
+  canSkill: 1
+  skillCooldown: 15

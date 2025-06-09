@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class MonsterData : MonoBehaviour
 {
-    [SerializeField] MonsterSO data;
+    [SerializeField] MonsterSO monsterSO;
+    PlayerController playerController;
 
     public int currentHealth;
 
     private void Start()
     {
-        currentHealth = data.monsterHealth;
+        currentHealth = monsterSO.monsterHealth;
     }
 
     public void TakeDamage(int damage)
@@ -23,11 +24,16 @@ public class MonsterData : MonoBehaviour
         }
     }
 
+    public void DealDamage()
+    {
+        playerController.Hit(monsterSO.damage);
+    }
+
     void Die()
     {
-        if (data.HealthItemPrefab != null)
+        if (monsterSO.HealthItemPrefab != null)
         {
-            Instantiate(data.HealthItemPrefab, transform.position, Quaternion.identity);
+            Instantiate(monsterSO.HealthItemPrefab, transform.position, Quaternion.identity);
         }
 
         Destroy(gameObject);

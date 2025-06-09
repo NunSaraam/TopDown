@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MeleeMonster : MonoBehaviour
 {
-    [SerializeField] MonsterSO data;
+    [SerializeField] MonsterSO monsterSO;
     [SerializeField] MonsterData monsterData;
 
     private Transform player;
@@ -24,9 +24,9 @@ public class MeleeMonster : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         animator = GetComponent<Animator>();
 
-        if (animator.runtimeAnimatorController == null && data.animatorController != null)
+        if (animator.runtimeAnimatorController == null && monsterSO.animatorController != null)
         {
-            animator.runtimeAnimatorController = data.animatorController;
+            animator.runtimeAnimatorController = monsterSO.animatorController;
         }
 
         patrolTarget = transform.position;
@@ -53,7 +53,7 @@ public class MeleeMonster : MonoBehaviour
         if (distanceToPlayer < 5f)
         {
             Vector3 direction = (player.position - transform.position).normalized;
-            transform.position += direction * data.moveSpeed * Time.deltaTime;
+            transform.position += direction * monsterSO.moveSpeed * Time.deltaTime;
         }
         else
         {
@@ -64,7 +64,7 @@ public class MeleeMonster : MonoBehaviour
             else
             {
                 Vector3 direction = (patrolTarget - transform.position).normalized;
-                transform.position += direction * data.moveSpeed * Time.deltaTime;
+                transform.position += direction * monsterSO.moveSpeed * Time.deltaTime;
             }
         }
     }
@@ -73,20 +73,24 @@ public class MeleeMonster : MonoBehaviour
     {
         float distanceToPlayer = Vector3.Distance(player.position, transform.position);
 
-        if (distanceToPlayer <= data.attackRange && attackCooldownTimer < 0f)
+        if (distanceToPlayer <= monsterSO.attackRange && attackCooldownTimer < 0f)
         {
-            attackCooldownTimer = data.attackCooldown;
+            attackCooldownTimer = monsterSO.attackCooldown;
             animator.SetTrigger("Attack");
 
             // 플레이어 데미지 주기 추가
+            if (attackCooldownTimer < 0f)
+            {
+                
+            }
         }
     }
 
     void HandleSkill()
     {
-        if (data.canSkill && skillColldownTimer <= 0f)
+        if (monsterSO.canSkill && skillColldownTimer <= 0f)
         {
-            skillColldownTimer = data.skillCooldown;
+            skillColldownTimer = monsterSO.skillCooldown;
             StartCoroutine(ChargeAttack());
         }
     }
@@ -103,7 +107,7 @@ public class MeleeMonster : MonoBehaviour
 
         while (elapsed < chargeDuration)
         {
-            transform.position += direction * data.moveSpeed * chargeSpeedMultipilier * Time.deltaTime;
+            transform.position += direction * monsterSO.moveSpeed * chargeSpeedMultipilier * Time.deltaTime;
             elapsed += Time.deltaTime;
             yield return null;
         }

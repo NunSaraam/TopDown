@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
+    MonsterSO MonsterSO;
+    MonsterData monsterData;
+
     Animator animator;
     Rigidbody2D rb;
 
@@ -21,6 +24,7 @@ public class Player : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        currentHealth = maxHealth;
     }
 
     private void Update()
@@ -48,7 +52,7 @@ public class Player : MonoBehaviour
         rb.velocity = movement * moveSpeed;
     }
         
-    void Hit(int damage)
+    public void Hit(int damage)
     {
         animator.SetTrigger("Hit");
         currentHealth -= damage;
@@ -63,6 +67,14 @@ public class Player : MonoBehaviour
 
             rb.velocity = Vector2.zero;
             rb.isKinematic = true;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            monsterData.DealDamage();
         }
     }
 }

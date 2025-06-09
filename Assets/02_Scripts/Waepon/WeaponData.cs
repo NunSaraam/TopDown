@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class WeaponData : MonoBehaviour
 {
-    [SerializeField] WeaponSO data;
+    [SerializeField] WeaponSO weaponSO;
 
     private int currentAmmo;
     private bool isReloading = false;
@@ -19,8 +19,8 @@ public class WeaponData : MonoBehaviour
 
     private void Start()
     {
-        currentAmmo = data.maxAmmo;
-        ammoUI.text = $"{currentAmmo}/{data.maxAmmo}";
+        currentAmmo = weaponSO.maxAmmo;
+        ammoUI.text = $"{currentAmmo}/{weaponSO.maxAmmo}";
         reloadingUI.gameObject.SetActive(false);
     }
 
@@ -47,7 +47,7 @@ public class WeaponData : MonoBehaviour
         currentAmmo = Mathf.Max(0, currentAmmo - 1);
         Debug.Log("ÇöÀç Åº¾à : " + currentAmmo);
         
-        ammoUI.text = $"{currentAmmo}/{data.maxAmmo}";
+        ammoUI.text = $"{currentAmmo}/{weaponSO.maxAmmo}";
 
         TryReload();
     }
@@ -76,9 +76,9 @@ public class WeaponData : MonoBehaviour
         {
             timer = 0f;
             isReloading = false;
-            currentAmmo = data.maxAmmo;
+            currentAmmo = weaponSO.maxAmmo;
 
-            ammoUI.text = $"{currentAmmo}/{data.maxAmmo}";
+            ammoUI.text = $"{currentAmmo}/{weaponSO.maxAmmo}";
 
             reloadingUI.gameObject.SetActive(false);
         }
@@ -90,16 +90,16 @@ public class WeaponData : MonoBehaviour
 
     public int GetMaxAmmo()
     {
-        return data.maxAmmo;
+        return weaponSO.maxAmmo;
     }
 
     public float GetShootRate()
     {
-        return data.shootRate;
+        return weaponSO.shootRate;
     }
 
     public bool IsAuto()
     {
-        return data.isAuto;
+        return weaponSO.isAuto;
     }
 }

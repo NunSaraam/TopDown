@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class RangedMonster : MonoBehaviour
 {
-    [SerializeField] MonsterSO data;
+    [SerializeField] MonsterSO monsterSO;
     [SerializeField] MonsterData monsterData;
 
     public GameObject rangedAttackPrefab;
@@ -24,9 +24,9 @@ public class RangedMonster : MonoBehaviour
         if (monsterData == null )
             monsterData = GetComponent<MonsterData>();
 
-        if (animator.runtimeAnimatorController == null && data.animatorController != null)
+        if (animator.runtimeAnimatorController == null && monsterSO.animatorController != null)
         {
-            animator.runtimeAnimatorController = data.animatorController;
+            animator.runtimeAnimatorController = monsterSO.animatorController;
         }
     }
 
@@ -44,15 +44,15 @@ public class RangedMonster : MonoBehaviour
 
         if ( distanceToPlayer < 8f)
         {
-            if (distanceToPlayer < data.attackRange)
+            if (distanceToPlayer < monsterSO.attackRange)
             {
                 Vector3 direction = (transform.position - player.position).normalized;
-                transform.position += direction * data.moveSpeed * Time.deltaTime;
+                transform.position += direction * monsterSO.moveSpeed * Time.deltaTime;
             }
         }
         else
         {
-            transform.position += Vector3.left * data.moveSpeed * Time.deltaTime;
+            transform.position += Vector3.left * monsterSO.moveSpeed * Time.deltaTime;
         }
     }
 
@@ -60,9 +60,9 @@ public class RangedMonster : MonoBehaviour
     {
         float distanceToPlayer = Vector3.Distance(player.position, transform.position);
 
-        if (distanceToPlayer <= data.attackRange && attackCooldownTimer <= 0f)
+        if (distanceToPlayer <= monsterSO.attackRange && attackCooldownTimer <= 0f)
         {
-            attackCooldownTimer = data.attackCooldown;
+            attackCooldownTimer = monsterSO.attackCooldown;
             animator.SetTrigger("Attack");
 
             Vector3 direction = (player.position - attackPoint.position).normalized;

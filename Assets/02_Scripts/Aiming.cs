@@ -12,8 +12,8 @@ public class Aiming : MonoBehaviour
 
     [SerializeField] private RectTransform crosshairUI;
     [SerializeField] private RectTransform reloadUI;
-    [SerializeField] private Vector2 reloadUIOffset = new Vector2(50, 50);
-    [SerializeField] WeaponData weaponData;
+    [SerializeField] private Vector2 reloadUIOffset = new Vector2(0, 0);
+    [SerializeField] WeaponData data;
 
 
     [SerializeField] private Transform mouseTransform;
@@ -52,15 +52,18 @@ public class Aiming : MonoBehaviour
 
     private void Shooting()
     {
-        if (Time.time < lastShotTime + weaponData.GetShootRate()) return;
+        if (Time.time < lastShotTime + data.GetShootRate())
+        {
+            return;
+        }
 
-        if (!weaponData.IsAuto() && Input.GetMouseButtonDown(0))
+        if (!data.IsAuto() && Input.GetMouseButtonDown(0))
         {
             lastShotTime = Time.time;
             Fire();
         }
 
-        else if (weaponData.IsAuto() && Input.GetMouseButton(0))
+        else if (data.IsAuto() && Input.GetMouseButton(0))
         {
             lastShotTime = Time.time;
             Fire();
@@ -69,10 +72,10 @@ public class Aiming : MonoBehaviour
 
     private void Fire()
     {
-        if (weaponData.GetCurrentAmmo() <= 0)
+        if (data.GetCurrentAmmo() <= 0)
         {
             Debug.Log("탄약이 없습니다. 재장전");
-            weaponData.TryReload();
+            data.TryReload();
             return;
         }
 
@@ -89,7 +92,7 @@ public class Aiming : MonoBehaviour
             rb.velocity = direction * bulletSpeed;
         }
 
-        weaponData.ConsumeAmmo();
+        data.ConsumeAmmo();
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         bullet.transform.rotation = Quaternion.Euler(0, 0, angle);
@@ -97,12 +100,12 @@ public class Aiming : MonoBehaviour
 
     private void UpdateReloadUI()
     {
-        if (reloadUI == null || weaponData == null) return;
+        if (reloadUI == null || data == null) return;
 
         Vector2 mousePos = Input.mousePosition;
         reloadUI.position = mousePos + reloadUIOffset;
 
-        reloadUI.gameObject.SetActive(weaponData.IsReloading());
+        reloadUI.gameObject.SetActive(data.IsReloading());
     }
 
     private void UpdataCrosshairPosition()
