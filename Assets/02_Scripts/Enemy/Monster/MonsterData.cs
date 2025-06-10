@@ -24,10 +24,6 @@ public class MonsterData : MonoBehaviour
         }
     }
 
-    public void DealDamage()
-    {
-        playerController.Hit(monsterSO.damage);
-    }
 
     void Die()
     {
@@ -39,11 +35,4 @@ public class MonsterData : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            DealDamage();
-        }
-    }
 }

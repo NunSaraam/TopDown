@@ -31,15 +31,12 @@ public class UIManager : MonoBehaviour
             {
                 healths[i].sprite = fullHealth;
             }
-            if (i < pMaxHealth)
-            {
-                healths[i].enabled = true;
-            }
             else
             {
-                healths[i].enabled = false;
+                healths[i].sprite = emptyHealth;
             }
 
+            healths[i].enabled = (i < pMaxHealth);
         }
 
     }

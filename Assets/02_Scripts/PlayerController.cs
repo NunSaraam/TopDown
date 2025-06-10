@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     public int maxHealth = 10;
     [SerializeField]public int currentHealth;
 
+    bool isInvincible = false;
+    public float invincibleDuration = 1f;
 
     bool isDead = false;
 
@@ -54,6 +56,8 @@ public class PlayerController : MonoBehaviour
         
     public void Hit(int damage)
     {
+        if (isInvincible) return;
+
         currentHealth -= damage;
 
         animator.SetTrigger("Hit");
@@ -62,12 +66,12 @@ public class PlayerController : MonoBehaviour
         {
             Dead();
         }
+        else
+        {
+            StartCoroutine(InvincibilityCoroutine());
+        }
     }
 
-    void CheakHealth()
-    {
-
-    }
 
     void Dead()
     {
@@ -83,5 +87,20 @@ public class PlayerController : MonoBehaviour
         {
             Hit(MonsterSO.damage);
         }
+
+        if (collision.CompareTag("HealthItem"))
+        {
+            currentHealth++;
+            Destroy(collision.gameObject);
+        }
+    }
+
+    IEnumerator InvincibilityCoroutine()
+    {
+        isInvincible = true;
+
+        yield return new WaitForSeconds(invincibleDuration);
+
+        isInvincible = false;
     }
 }

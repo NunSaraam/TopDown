@@ -17,5 +17,5 @@ MonoBehaviour:
   weaponPrefab: {fileID: 8821019013066988752, guid: e9efbff599cf8044aa3ef20e147ffd24, type: 3}
   isAuto: 0
   maxAmmo: 9
-  damage: 0
+  damage: 3
   shootRate: 0.25

@@ -10,7 +10,6 @@ public class MeleeMonster : MonoBehaviour
     private Transform player;
     private Animator animator;
 
-    private float attackCooldownTimer = 0f;
     private float skillColldownTimer = 0f;
 
     private Vector3 patrolTarget;
@@ -18,6 +17,10 @@ public class MeleeMonster : MonoBehaviour
     private float chargeSpeedMultipilier = 2f;
 
     private bool isCharging = false;
+    private bool isChasing = false;
+
+    public float detectRange = 6f;
+    public float stopChaseRange = 8f;
 
     private void Start()
     {
@@ -34,57 +37,43 @@ public class MeleeMonster : MonoBehaviour
 
     private void Update()
     {
-        attackCooldownTimer -= Time.deltaTime;
         skillColldownTimer -= Time.deltaTime;
-        
-        if (!isCharging)
-        {
-            patrolOrChase();
-        }
 
-        HandleAttack();
+        UpdateChaseState();
+
+        if (isCharging)
+            return;
+
+        if (isChasing)
+        {
+            chasePlayer();
+        }
+        else
+        { 
+            Handlepatrol();
+        }
         HandleSkill();
     }
 
-    void patrolOrChase()
+    void chasePlayer()
     {
-        float distanceToPlayer = Vector3.Distance(player.position, transform.position);
+        Vector3 direction = (player.position - transform.position).normalized;
+        transform.position += direction * monsterSO.moveSpeed * Time.deltaTime;
+    }
 
-        if (distanceToPlayer < 5f)
+    void Handlepatrol()
+    {
+        if (Vector3.Distance(transform.position, patrolTarget) < 0.5f)
         {
-            Vector3 direction = (player.position - transform.position).normalized;
-            transform.position += direction * monsterSO.moveSpeed * Time.deltaTime;
+            patrolTarget = transform.position + (Vector3)(Random.insideUnitCircle * patrolRadius);
         }
         else
         {
-            if (Vector3.Distance(transform.position, patrolTarget) < 0.5f)
-            {
-                patrolTarget = transform.position + (Vector3)(Random.insideUnitCircle * patrolRadius);
-            }
-            else
-            {
-                Vector3 direction = (patrolTarget - transform.position).normalized;
-                transform.position += direction * monsterSO.moveSpeed * Time.deltaTime;
-            }
+            Vector3 direction = (patrolTarget - transform.position).normalized;
+            transform.position += direction * monsterSO.moveSpeed * Time.deltaTime;
         }
     }
 
-    void HandleAttack()
-    {
-        float distanceToPlayer = Vector3.Distance(player.position, transform.position);
-
-        if (distanceToPlayer <= monsterSO.attackRange && attackCooldownTimer < 0f)
-        {
-            attackCooldownTimer = monsterSO.attackCooldown;
-            //animator.SetTrigger("Attack");
-
-            // 플레이어 데미지 주기 추가
-            if (attackCooldownTimer < 0f)
-            {
-                
-            }
-        }
-    }
 
     void HandleSkill()
     {
@@ -92,6 +81,20 @@ public class MeleeMonster : MonoBehaviour
         {
             skillColldownTimer = monsterSO.skillCooldown;
             StartCoroutine(ChargeAttack());
+        }
+    }
+
+    void UpdateChaseState()
+    {
+        float distance = Vector3.Distance(player.position, transform.position);
+
+        if (distance < detectRange)
+        {
+            isChasing = true;
+        }
+        else if ( distance > stopChaseRange)
+        {
+            isChasing = false;
         }
     }
 
@@ -114,4 +117,6 @@ public class MeleeMonster : MonoBehaviour
 
         isCharging = false;
     }
+
+
 }
