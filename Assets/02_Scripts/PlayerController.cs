@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    MonsterSO MonsterSO;
-    MonsterData monsterData;
+    [SerializeField] MonsterSO MonsterSO;
+    [SerializeField] MonsterData monsterData;
 
     Animator animator;
     Rigidbody2D rb;
 
     public float moveSpeed = 10f;
+
     public int maxHealth = 10;
-    public int currentHealth;
+    [SerializeField]public int currentHealth;
+
 
     bool isDead = false;
 
@@ -29,9 +32,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-            Hit(10);
-
 
         moveHorizontal = Input.GetAxisRaw("Horizontal");
         moveVertical = Input.GetAxisRaw("Vertical");
@@ -44,7 +44,6 @@ public class PlayerController : MonoBehaviour
             facingDirection = movement.x > 0 ? 1 : -1;
 
         transform.localScale = new Vector2(facingDirection, 1);
-                   
     }
 
     private void FixedUpdate()
@@ -56,7 +55,6 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetTrigger("Hit");
         currentHealth -= damage;
-        
     }
 
     void Dead()

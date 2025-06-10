@@ -48,6 +48,14 @@ public class Aiming : MonoBehaviour
         Vector3 mouseDirection = (mousePosition - mouseTransform.position).normalized;
         float angle = Mathf.Atan2(mouseDirection.y, mouseDirection.x) * Mathf.Rad2Deg;
         mouseTransform.eulerAngles = new Vector3(0, 0, angle);
+
+        bool isPlayerFlipped = transform.lossyScale.x < 0;
+        if (isPlayerFlipped) 
+        {
+            angle += 180f;
+        }
+
+        mouseTransform.rotation = Quaternion.Euler(0, 0,angle);
     }
 
     private void Shooting()

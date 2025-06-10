@@ -76,7 +76,7 @@ public class MeleeMonster : MonoBehaviour
         if (distanceToPlayer <= monsterSO.attackRange && attackCooldownTimer < 0f)
         {
             attackCooldownTimer = monsterSO.attackCooldown;
-            animator.SetTrigger("Attack");
+            //animator.SetTrigger("Attack");
 
             // 플레이어 데미지 주기 추가
             if (attackCooldownTimer < 0f)
