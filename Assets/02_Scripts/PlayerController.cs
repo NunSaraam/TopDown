@@ -44,6 +44,8 @@ public class PlayerController : MonoBehaviour
             facingDirection = movement.x > 0 ? 1 : -1;
 
         transform.localScale = new Vector2(facingDirection, 1);
+
+        Dead();
     }
 
     private void FixedUpdate()
@@ -53,8 +55,14 @@ public class PlayerController : MonoBehaviour
         
     public void Hit(int damage)
     {
-        animator.SetTrigger("Hit");
         currentHealth -= damage;
+
+        animator.SetTrigger("Hit");
+        
+        if (currentHealth <= 0)
+        {
+            Dead();
+        }
     }
 
     void Dead()
