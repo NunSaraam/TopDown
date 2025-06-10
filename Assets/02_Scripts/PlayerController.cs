@@ -45,7 +45,6 @@ public class PlayerController : MonoBehaviour
 
         transform.localScale = new Vector2(facingDirection, 1);
 
-        Dead();
     }
 
     private void FixedUpdate()
@@ -65,22 +64,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void CheakHealth()
+    {
+
+    }
+
     void Dead()
     {
-        if (currentHealth <= 0)
-        {
-            isDead = true;
+        isDead = true;
 
-            rb.velocity = Vector2.zero;
-            rb.isKinematic = true;
-        }
+        rb.velocity = Vector2.zero;
+        rb.isKinematic = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
         {
-            monsterData.DealDamage();
+            Hit(MonsterSO.damage);
         }
     }
 }

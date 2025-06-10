@@ -18,7 +18,6 @@ public class UIManager : MonoBehaviour
     {
         pMaxHealth = controller.maxHealth;
         health = controller.currentHealth;
-
     }
 
     void Update()

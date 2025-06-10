@@ -262,7 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b17ea13d069eb247b9b15c7f6fd74f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MonsterSO: {fileID: 0}
+  MonsterSO: {fileID: 11400000, guid: 898bc067245ffcb41ae61689e8262c44, type: 2}
   monsterData: {fileID: 1852672213}
   moveSpeed: 10
   maxHealth: 10
