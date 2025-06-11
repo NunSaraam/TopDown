@@ -31,9 +31,11 @@ public class RangedAttack : MonoBehaviour
             Destroy(gameObject);
         }
 
+        /*
         if (collision.CompareTag("Wall"))
         {
             Destroy(gameObject);
         }
+        */
     }
 }

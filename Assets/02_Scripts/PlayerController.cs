@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour
 
         transform.localScale = new Vector2(facingDirection, 1);
 
+        TestReStartStage();
     }
 
     private void FixedUpdate()
@@ -102,5 +104,14 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(invincibleDuration);
 
         isInvincible = false;
+    }
+
+
+    void TestReStartStage()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+        }
     }
 }
