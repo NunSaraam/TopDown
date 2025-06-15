@@ -16,8 +16,6 @@ public class MeleeMonster : MonoBehaviour
     private float patrolRadius = 3f;
     private float chargeSpeedMultipilier = 2f;
 
-    private bool isCharging = false;
-    private bool isChasing = false;
 
     public float detectRange = 6f;
     public float stopChaseRange = 8f;
