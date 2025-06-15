@@ -22,6 +22,11 @@ public class MeleeMonster : MonoBehaviour
     public float detectRange = 6f;
     public float stopChaseRange = 8f;
 
+    private float stateTimer;
+
+    private enum MonsterState { Idle, Patrol, Chase, Charge}
+    private MonsterState currentState = MonsterState.Patrol;
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -39,71 +44,103 @@ public class MeleeMonster : MonoBehaviour
     {
         skillColldownTimer -= Time.deltaTime;
 
-        UpdateChaseState();
+        UpdateState();
+        HandleState();
+    }
+    void UpdateState()
+    {
+        float distance = Vector3.Distance(player.position, transform.position);
 
-        if (isCharging)
-            return;
-
-        if (isChasing)
+        switch (currentState)
         {
-            chasePlayer();
+            case MonsterState.Patrol:
+            case MonsterState.Idle:
+                if (distance < detectRange)
+                {
+                    currentState = MonsterState.Chase;
+                }
+                break;
+
+            case MonsterState.Chase:
+                if (distance > stopChaseRange)
+                {
+                    currentState = MonsterState.Patrol;
+                    patrolTarget = transform.position;
+                }
+                break;
+
+            case MonsterState.Charge:
+                break;
         }
-        else
-        { 
-            Handlepatrol();
-        }
-        HandleSkill();
     }
 
-    void chasePlayer()
+    void HandleState()
+    {
+        switch (currentState)
+        {
+            case MonsterState.Idle:
+                break;
+
+            case MonsterState.Patrol:
+                HandlePatrol();
+                break;
+
+            case MonsterState.Chase:
+                ChasePlayer();
+                HandleSkill();
+                break;
+
+            case MonsterState.Charge:
+                break;
+        }
+    }
+
+    void ChasePlayer()
     {
         Vector3 direction = (player.position - transform.position).normalized;
         transform.position += direction * monsterSO.moveSpeed * Time.deltaTime;
+        FaceTarget(direction);
     }
 
-    void Handlepatrol()
+    void HandlePatrol()
     {
         if (Vector3.Distance(transform.position, patrolTarget) < 0.5f)
         {
             patrolTarget = transform.position + (Vector3)(Random.insideUnitCircle * patrolRadius);
         }
-        else
-        {
-            Vector3 direction = (patrolTarget - transform.position).normalized;
-            transform.position += direction * monsterSO.moveSpeed * Time.deltaTime;
-        }
+
+        Vector3 direction = (patrolTarget - transform.position).normalized;
+        transform.position += direction * monsterSO.moveSpeed * Time.deltaTime;
+        FaceTarget(direction);
     }
 
 
     void HandleSkill()
     {
-        if (monsterSO.canSkill && skillColldownTimer <= 0f)
-        {
-            skillColldownTimer = monsterSO.skillCooldown;
-            StartCoroutine(ChargeAttack());
-        }
+        if (monsterSO.canSkill) return;
+        if (skillColldownTimer > 0f) return;
+        
+        skillColldownTimer = monsterSO.skillCooldown;
+        StartCoroutine(ChargeAttack());
     }
 
-    void UpdateChaseState()
+    void FaceTarget(Vector3 direction)
     {
-        float distance = Vector3.Distance(player.position, transform.position);
-
-        if (distance < detectRange)
-        {
-            isChasing = true;
-        }
-        else if ( distance > stopChaseRange)
-        {
-            isChasing = false;
-        }
+        if (direction.x < 0)
+            transform.localScale = new Vector3(-1, 1, 1);
+        else
+            transform.localScale = new Vector3(1, 1, 1);
     }
+
 
     IEnumerator ChargeAttack()
     {
-        isCharging = true;
+        currentState = MonsterState.Charge;
+
         animator.SetTrigger("Charge");
 
         Vector3 direction = (player.position - transform.position).normalized;
+        FaceTarget(direction);
 
         float chargeDuration = 0.5f;
         float elapsed = 0f;
@@ -115,7 +152,7 @@ public class MeleeMonster : MonoBehaviour
             yield return null;
         }
 
-        isCharging = false;
+        currentState = MonsterState.Charge;
     }
 
 
