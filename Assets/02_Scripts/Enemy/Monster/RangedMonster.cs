@@ -49,6 +49,7 @@ public class RangedMonster : MonoBehaviour
     private void Update()
     {
         attackCooldownTimer -= Time.deltaTime;
+        stateTimer -= Time.deltaTime;
 
         float distanceToPlayer = Vector3.Distance(player.position, transform.position);
 
@@ -64,50 +65,60 @@ public class RangedMonster : MonoBehaviour
         {
             if (currentState != State.Patrol && currentState != State.Idle)
             {
-                currentState = Random.value < 0.5f ? State.Patrol : State.Idle;
-                stateTimer = currentState == State.Patrol ? patrolTime : idleTime;
+                bool goPatrol = Random.value < 0.5f;
+                currentState = goPatrol ? State.Patrol : State.Idle;
+                stateTimer = goPatrol ? patrolTime : idleTime;
+
                 patrolDirection = Random.value < 0.5f ? Vector2.left : Vector2.right;
             }
         }
-        stateTimer = Time.deltaTime;
 
         switch (currentState)
         {
             //정지상태
-            case State.Idle:
-                if (stateTimer <= 0f)
-                {
-                    currentState = State.Patrol;
-                    stateTimer = patrolTime;
-                    patrolDirection = Random.value < 0.5f ? Vector2.left : Vector2.right;
-                }
-                break;
-            //정찰상태
-            case State.Patrol:
-                transform.position += (Vector3)(patrolDirection * monsterSO.moveSpeed * Time.deltaTime);
-                if (patrolDirection.x < 0)
-                    transform.localScale = new Vector3(-1, 1, 1);
-                else
-                    transform.localScale = new Vector3(1, 1, 1);
+            case State.Idle :   HandleIdle(); break;
 
-                if (stateTimer <= 0f)
-                {
-                    currentState = State.Idle;
-                    stateTimer = idleTime;
-                }
-                break;
+            //정찰상태
+            case State.Patrol:  HandlePatrol(); break;
+
             //도망상태
-            case State.Flee:
-                Vector3 fleeDir = (transform.position - player.position).normalized;
-                transform.position += fleeDir * monsterSO.moveSpeed * Time.deltaTime;
-                break;
+            case State.Flee:    HandlFlee(); break;
+
             //공격상태
-            case State.Attack:
-                HandleAttack();
-                break;
+            case State.Attack:  HandleAttack(); break;
         }
     }
 
+    void HandleIdle()
+    {
+        if (stateTimer <= 0f)
+        {
+            currentState = State.Patrol;
+            stateTimer = patrolTime;
+            ChooseRandomPatrolDirection();
+        }
+    }
+
+    void HandlePatrol()
+    {
+        transform.position += (Vector3)(patrolDirection * monsterSO.moveSpeed * Time.deltaTime);
+
+        if (patrolDirection.x != 0)
+            transform.localScale = new Vector3(Mathf.Sign(patrolDirection.x), 1, 1);
+
+
+        if (stateTimer <= 0f)
+        {
+            currentState = State.Idle;
+            stateTimer = idleTime;
+        }
+    }
+
+    void HandlFlee()
+    {
+        Vector3 fleeDir = (transform.position - player.position).normalized;
+        transform.position += fleeDir * monsterSO.moveSpeed * Time.deltaTime;
+    }
 
     void HandleAttack()
     {
@@ -134,6 +145,26 @@ public class RangedMonster : MonoBehaviour
             {
                 attack.SetDamage(monsterSO.damage);
             }
+        }
+    }
+
+    void ChooseRandomPatrolDirection()
+    {
+        Vector2[] direction =
+        {
+            Vector2.left,
+            Vector2.right,
+            Vector2.up,
+            Vector2.down
+        };
+
+        patrolDirection = direction[Random.Range(0, direction.Length)];
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Wall"))
+        {
+            ChooseRandomPatrolDirection();
         }
     }
 }
