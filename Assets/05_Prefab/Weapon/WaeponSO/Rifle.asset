@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cc623d9cd64cb842aee4e026202e52f, type: 3}
   m_Name: Rifle
   m_EditorClassIdentifier: 
+  weaponID: 
   weaponName: Rifle
-  weaponIcon: {fileID: 0}
+  weaponIcon: {fileID: 1647514485, guid: 50af92683a6f7324698cc0fdcf9b85a8, type: 3}
   weaponPrefab: {fileID: 4155078696119691633, guid: 7e36fe9ab512e184cbe21f7a6c587b26, type: 3}
   isAuto: 1
   maxAmmo: 30

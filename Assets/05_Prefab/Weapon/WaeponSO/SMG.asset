@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cc623d9cd64cb842aee4e026202e52f, type: 3}
   m_Name: SMG
   m_EditorClassIdentifier: 
+  weaponID: 
   weaponName: SMG
-  weaponIcon: {fileID: 0}
+  weaponIcon: {fileID: -398695717, guid: d36006a5c4bd6de43a6bb4d6a12598cc, type: 3}
   weaponPrefab: {fileID: 529143767403111202, guid: 780f4b0c35fed1646884cea1dacb671b, type: 3}
   isAuto: 1
   maxAmmo: 15

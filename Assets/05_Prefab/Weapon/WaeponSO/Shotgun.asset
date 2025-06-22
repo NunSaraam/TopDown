@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cc623d9cd64cb842aee4e026202e52f, type: 3}
   m_Name: Shotgun
   m_EditorClassIdentifier: 
+  weaponID: 
   weaponName: Shotgun
-  weaponIcon: {fileID: 0}
+  weaponIcon: {fileID: 1237864848, guid: 50af92683a6f7324698cc0fdcf9b85a8, type: 3}
   weaponPrefab: {fileID: 3044624954360439483, guid: a478858e2ad2d4b499949df75e246656, type: 3}
   isAuto: 0
   maxAmmo: 5

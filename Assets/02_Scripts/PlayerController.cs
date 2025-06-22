@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     public float moveSpeed = 10f;
 
-    public int maxHealth = 10;
+    public int maxHealth;
     [SerializeField]public int currentHealth;
 
     bool isInvincible = false;
@@ -30,7 +30,24 @@ public class PlayerController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+
+        if (PlayerStatsManager.Instance != null)
+        {
+            PlayerStatsManager.Instance.LoadData();
+            maxHealth = PlayerStatsManager.Instance.currentMaxHealth;
+        }
+        else
+        {
+            Debug.LogWarning("PlayerStatsManager.Instance is null");
+            maxHealth = 5;
+        }
+
         currentHealth = maxHealth;
+        
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.UpdataHealthUI(currentHealth, maxHealth);
+        }
     }
 
     private void Update()
@@ -64,6 +81,8 @@ public class PlayerController : MonoBehaviour
 
         animator.SetTrigger("Hit");
         
+        UIManager.Instance.UpdataHealthUI(currentHealth, maxHealth);
+
         if (currentHealth <= 0)
         {
             Dead();
@@ -77,10 +96,12 @@ public class PlayerController : MonoBehaviour
 
     void Dead()
     {
-        isDead = true;
+        if (isDead) return;
 
-        rb.velocity = Vector2.zero;
-        rb.isKinematic = true;
+        moveHorizontal = Input.GetAxisRaw("Horizontal");
+        moveVertical = Input.GetAxisRaw("Vertical");
+
+        PlayerStatsManager.Instance.RegisterDeath();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -92,7 +113,11 @@ public class PlayerController : MonoBehaviour
 
         if (collision.CompareTag("HealthItem"))
         {
-            currentHealth++;
+            currentHealth = Mathf.Min(currentHealth + 1, maxHealth);
+            if (UIManager.Instance != null)
+            {
+                UIManager.Instance.UpdataHealthUI(currentHealth, maxHealth);
+            }
             Destroy(collision.gameObject);
         }
     }
