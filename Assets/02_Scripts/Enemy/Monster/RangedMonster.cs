@@ -143,7 +143,7 @@ public class RangedMonster : MonoBehaviour
             RangedAttack attack = rangedAttack.GetComponent<RangedAttack>();
             if ( attack != null)
             {
-                attack.SetDamage(monsterSO.damage);
+                attack.SetDamage(monsterSO.attackDamage);
             }
         }
     }

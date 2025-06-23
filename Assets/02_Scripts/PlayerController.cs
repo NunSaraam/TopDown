@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            Hit(MonsterSO.damage);
+            Hit(MonsterSO.attackDamage);
         }
 
         if (collision.CompareTag("HealthItem"))

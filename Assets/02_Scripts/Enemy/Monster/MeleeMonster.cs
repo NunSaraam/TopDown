@@ -20,7 +20,6 @@ public class MeleeMonster : MonoBehaviour
     public float detectRange = 6f;
     public float stopChaseRange = 8f;
 
-    private float stateTimer;
 
     private enum MonsterState { Idle, Patrol, Chase, Charge}
     private MonsterState currentState = MonsterState.Patrol;

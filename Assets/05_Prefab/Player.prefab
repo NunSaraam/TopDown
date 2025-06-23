@@ -525,7 +525,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 7514784421134283926, guid: 3e14abfd29ca1384c9eb99388c7d481f, type: 3}
   firePoint: {fileID: 7325542184478997632}
-  bulletSpeed: 10
+  bulletSpeed: 20
   crosshairUI: {fileID: 0}
   reloadUI: {fileID: 0}
   reloadUIOffset: {x: 0, y: 0}

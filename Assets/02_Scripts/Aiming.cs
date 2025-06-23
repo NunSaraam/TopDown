@@ -8,7 +8,7 @@ public class Aiming : MonoBehaviour
     //ÃÑ¾Ë ¹ß»ç
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
-    [SerializeField] private float bulletSpeed = 10.0f;
+    [SerializeField] private float bulletSpeed = 20.0f;
 
     [SerializeField] private RectTransform crosshairUI;
     [SerializeField] private RectTransform reloadUI;
