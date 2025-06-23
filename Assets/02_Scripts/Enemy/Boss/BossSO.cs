@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 [CreateAssetMenu(menuName = "Boss/NewBoss", fileName = "NewBoss")]
-public class BossDropSO : ScriptableObject
+public class BossSO : ScriptableObject
 {
     public string bossName;
     public GameObject bossPrefab;

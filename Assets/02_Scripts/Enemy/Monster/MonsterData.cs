@@ -6,7 +6,6 @@ using UnityEngine;
 public class MonsterData : MonoBehaviour
 {
     [SerializeField] MonsterSO monsterSO;
-    PlayerController playerController;
 
     public int currentHealth;
 
