@@ -2022,7 +2022,7 @@ GameObject:
   m_Component:
   - component: {fileID: 380026673}
   m_Layer: 0
-  m_Name: HealthPoint
+  m_Name: HealthUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

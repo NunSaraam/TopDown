@@ -430,12 +430,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bbffad05295a0a418ca3a166d265691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emptyHealth: {fileID: 21300000, guid: 7dd768ab19011bb44b62feba980a4af3, type: 3}
-  fullHealth: {fileID: -1813072043, guid: e917e72cf828ee04c8d9a55cd6d50988, type: 3}
+  emptyHealth: {fileID: 21300000, guid: 849e1b8ab74386a4b8578178578320b1, type: 3}
+  fullHealth: {fileID: 21300000, guid: 2296b4557103eb24282c58c8cf3bd53e, type: 3}
   healths: []
-  weaponSelectPanel: {fileID: 67351235}
-  weaponButtonParent: {fileID: 799360210}
-  weaponButtonPrefab: {fileID: 5623933452999702273, guid: ccf84e7e88bd4704fab26b7364e4bb4c, type: 3}
 --- !u!4 &537078302
 Transform:
   m_ObjectHideFlags: 0
@@ -782,8 +779,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 537078301}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 1233496697}
+        m_TargetAssemblyTypeName: WeaponSelectUI, Assembly-CSharp
         m_MethodName: ShowWeaponSelectUI
         m_Mode: 1
         m_Arguments:
@@ -832,6 +829,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1004768609}
   m_CullTransparentMesh: 1
+--- !u!1 &1233496696
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1233496698}
+  - component: {fileID: 1233496697}
+  m_Layer: 0
+  m_Name: WeaponSelectUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1233496697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233496696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85c900ad9bd092245baecc813e639834, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponSelectPanel: {fileID: 67351235}
+  weaponButtonParent: {fileID: 799360210}
+  weaponButtonPrefab: {fileID: 5623933452999702273, guid: ccf84e7e88bd4704fab26b7364e4bb4c, type: 3}
+--- !u!4 &1233496698
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233496696}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -11.490616, y: -0.23431027, z: -0.13293174}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1243508482
 GameObject:
   m_ObjectHideFlags: 0
@@ -915,8 +959,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 537078301}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 1233496697}
+        m_TargetAssemblyTypeName: WeaponSelectUI, Assembly-CSharp
         m_MethodName: OnStartGame
         m_Mode: 1
         m_Arguments:
@@ -1382,3 +1426,4 @@ SceneRoots:
   - {fileID: 1373788044}
   - {fileID: 884510116}
   - {fileID: 1813008347}
+  - {fileID: 1233496698}
