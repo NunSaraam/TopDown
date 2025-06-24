@@ -1040,6 +1040,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathCount: 0
   baseMaxHealth: 5
+  loopCount: 1
 --- !u!4 &1373788044
 Transform:
   m_ObjectHideFlags: 0

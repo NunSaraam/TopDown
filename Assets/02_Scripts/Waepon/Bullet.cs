@@ -29,6 +29,26 @@ public class Bullet : MonoBehaviour
 
             Destroy(gameObject);
         }
+        if (collision.CompareTag("Enemy"))
+        {
+            KeyMonster keyMonster = collision.GetComponent<KeyMonster>();
+            if (keyMonster != null)
+            {
+                keyMonster.TakeDamage(WeaponSO.damage);
+            }
+
+            Destroy(gameObject);
+        }
+        if (collision.CompareTag("Enemy"))
+        {
+            BossController bc = collision.GetComponent<BossController>();
+            if (bc != null)
+            {
+                bc.TakeDamage(WeaponSO.damage);
+            }
+                
+            Destroy(gameObject);
+        }
 
         if (collision.CompareTag("Wall"))
         {

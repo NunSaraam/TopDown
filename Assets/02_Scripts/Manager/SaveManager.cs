@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlaterStatsData
 {
     public int deathCount;
+    public int loopCount;
 }
 
 public class SaveManager : MonoBehaviour
@@ -26,16 +27,24 @@ public class SaveManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void SaveStats(int deathCount)
+    public void SaveStats(int deathCount, int loopCount)
     {
-        PlaterStatsData data = new PlaterStatsData { deathCount = deathCount };
+        PlaterStatsData data = new PlaterStatsData();
+        data.deathCount = deathCount;
+        data.loopCount = loopCount;
+
         string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(path, json);
+        File.WriteAllText(Application.persistentDataPath + "/stats.json", json);
     }
 
     public PlaterStatsData LoadStats()
     {
-        if (!File.Exists(path)) return new PlaterStatsData();
+        string path = Application.persistentDataPath + "/stats.json";
+        if (!File.Exists(path))
+        {
+            return new PlaterStatsData();
+        }
+
         string json = File.ReadAllText(path);
         return JsonUtility.FromJson<PlaterStatsData>(json);
     }

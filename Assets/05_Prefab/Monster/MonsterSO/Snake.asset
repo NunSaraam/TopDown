@@ -17,7 +17,7 @@ MonoBehaviour:
   monsterPrefab: {fileID: 4629338510363516256, guid: d2789f729bfd1554aa84a431202e0763, type: 3}
   monsterHealth: 10
   moveSpeed: 5
-  damage: 2
+  attackDamage: 2
   attackRange: 1
   attackCooldown: 1
   animatorController: {fileID: 0}

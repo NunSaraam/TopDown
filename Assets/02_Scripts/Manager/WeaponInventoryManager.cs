@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class WeaponInventoryManager : MonoBehaviour
 {
-    public static WeaponInventoryManager Instace {  get; private set; }
+    public static WeaponInventoryManager Instance {  get; private set; }
 
     [Header("전체 무기 목록")]
     public List<WeaponSO> allWeapons;
@@ -22,14 +22,23 @@ public class WeaponInventoryManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instace != null && Instace != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
-        Instace = this;
+        Instance = this;
         DontDestroyOnLoad(gameObject);
         LoadInventory();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            WeaponInventoryManager.Instance.ResetInventory();
+            PlayerStatsManager.Instance.ResetStats();
+        }
     }
 
     public void UnlockWeapon(WeaponSO weapon)
@@ -47,11 +56,28 @@ public class WeaponInventoryManager : MonoBehaviour
         return unlockedWeapons.Contains(weapon);
     }
 
+    public void ResetInventory()
+    {
+        unlockedWeapons.Clear();
+
+        // JSON 파일도 삭제
+        if (File.Exists(savePath))
+        {
+            File.Delete(savePath);
+            Debug.Log("[Inventory] 무기 인벤토리 초기화됨. JSON 삭제됨.");
+        }
+        else
+        {
+            Debug.Log("[Inventory] JSON 파일이 존재하지 않습니다.");
+        }
+    }
+
+
     public void SaveInventory()
     {
         WeaponinventorySaveData saveData = new WeaponinventorySaveData();
 
-        foreach (var weapon in allWeapons)
+        foreach (var weapon in unlockedWeapons)
         {
             saveData.unlockedWeaponIDs.Add(weapon.weaponID);
         }

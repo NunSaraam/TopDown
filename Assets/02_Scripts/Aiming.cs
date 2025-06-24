@@ -5,15 +5,16 @@ using System;
 
 public class Aiming : MonoBehaviour
 {
-    //ÃÑ¾Ë ¹ß»ç
+    [Header("ÃÑ¾Ë ¹ß»ç")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private float bulletSpeed = 20.0f;
 
+    [Header("UI¿¬°á")]
     [SerializeField] private RectTransform crosshairUI;
     [SerializeField] private RectTransform reloadUI;
     [SerializeField] private Vector2 reloadUIOffset = new Vector2(0, 0);
-    [SerializeField] WeaponData data;
+    private WeaponData data;
 
 
     [SerializeField] private Transform mouseTransform;
@@ -122,6 +123,16 @@ public class Aiming : MonoBehaviour
 
         Vector2 mousePos = Input.mousePosition;
         crosshairUI.position = mousePos;
+    }
+
+    public void SetWeaponData(WeaponData newData)
+    {
+        data = newData;
+    }
+
+    public void SetFirePoint(Transform point)
+    {
+        firePoint = point;
     }
 
 

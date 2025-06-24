@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterName: R_Snake
   monsterIcon: {fileID: -1533235479, guid: f382f72cde4ba474f965b2dc632e0807, type: 3}
-  monsterPrefab: {fileID: 0}
+  monsterPrefab: {fileID: 7557142806837488518, guid: 69c801afd7c14c54d9a390f2ebab75f4, type: 3}
   monsterHealth: 8
   moveSpeed: 5
-  damage: 1
+  attackDamage: 1
   attackRange: 8
   attackCooldown: 2
   animatorController: {fileID: 0}

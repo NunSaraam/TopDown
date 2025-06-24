@@ -127,7 +127,7 @@ public class RangedMonster : MonoBehaviour
         if (distanceToPlayer <= monsterSO.attackRange && attackCooldownTimer <= 0f)
         {
             attackCooldownTimer = monsterSO.attackCooldown;
-            animator.SetTrigger("Attack");
+            //animator.SetTrigger("Attack");
 
             Vector3 direction = (player.position - attackPoint.position).normalized;
 

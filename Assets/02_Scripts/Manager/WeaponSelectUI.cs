@@ -33,7 +33,7 @@ public class WeaponSelectUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        var weapons = WeaponInventoryManager.Instace.unlockedWeapons;
+        var weapons = WeaponInventoryManager.Instance.unlockedWeapons;
 
         foreach (WeaponSO weapon in weapons)
         {

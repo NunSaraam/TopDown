@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cc623d9cd64cb842aee4e026202e52f, type: 3}
   m_Name: Revolver
   m_EditorClassIdentifier: 
-  weaponID: 
+  weaponID: Revolver
   weaponName: Revolver
   weaponIcon: {fileID: -84982075, guid: d36006a5c4bd6de43a6bb4d6a12598cc, type: 3}
   weaponPrefab: {fileID: 735754871344939307, guid: d33ffaea143d8d340846a57aebe8388b, type: 3}
   isAuto: 0
   maxAmmo: 6
-  damage: 0
+  damage: 9
   shootRate: 0.5

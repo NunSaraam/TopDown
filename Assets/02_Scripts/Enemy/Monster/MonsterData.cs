@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MonsterData : MonoBehaviour
 {
-    [SerializeField] MonsterSO monsterSO;
+    public MonsterSO monsterSO;
 
     public int currentHealth;
 
@@ -13,6 +13,12 @@ public class MonsterData : MonoBehaviour
     {
         currentHealth = monsterSO.monsterHealth;
     }
+
+    public int GetAttackDamage()
+    {
+        return monsterSO.attackDamage;
+    }
+
 
     public void TakeDamage(int damage)
     {

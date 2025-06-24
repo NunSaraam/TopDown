@@ -22,7 +22,7 @@ public class RangedAttack : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            PlayerController controller = GetComponent<PlayerController>();
+            PlayerController controller = collision.GetComponent<PlayerController>();
             if (controller != null)
             {
                 controller.Hit(damage);
@@ -31,11 +31,11 @@ public class RangedAttack : MonoBehaviour
             Destroy(gameObject);
         }
 
-        /*
+        
         if (collision.CompareTag("Wall"))
         {
             Destroy(gameObject);
         }
-        */
+        
     }
 }

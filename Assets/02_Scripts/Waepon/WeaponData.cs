@@ -102,4 +102,9 @@ public class WeaponData : MonoBehaviour
     {
         return weaponSO.isAuto;
     }
+
+    public void SetWeaponSO(WeaponSO so)
+    {
+        weaponSO = so;
+    }
 }

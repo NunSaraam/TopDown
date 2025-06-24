@@ -6,9 +6,6 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] MonsterSO MonsterSO;
-    [SerializeField] MonsterData monsterData;
-
     Animator animator;
     Rigidbody2D rb;
 
@@ -38,7 +35,6 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("PlayerStatsManager.Instance is null");
             maxHealth = 5;
         }
 
@@ -108,7 +104,12 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            Hit(MonsterSO.attackDamage);
+            MonsterData monsterdata = collision.GetComponent<MonsterData>();
+            if (monsterdata != null)
+            {
+                int damage = monsterdata.monsterSO.attackDamage;
+                Hit(damage);
+            }
         }
 
         if (collision.CompareTag("HealthItem"))
@@ -120,6 +121,7 @@ public class PlayerController : MonoBehaviour
             }
             Destroy(collision.gameObject);
         }
+
     }
 
     IEnumerator InvincibilityCoroutine()
